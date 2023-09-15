@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
       this.footballDataService
         .getCountries('countries')
         .subscribe((res: any) => {
+          this.error = '';
           if (res['response'].length > 0) {
             this.countriesList = res['response'].filter(
               (country: countries) => {
