@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FootballappService } from '../service/footballapp.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { fixture } from '../interface/fixtureData';
 @Component({
   selector: 'app-fixtures',
   templateUrl: './fixtures.component.html',
   styleUrls: ['./fixtures.component.css']
 })
 export class FixturesComponent implements OnInit {
-  fixtures:Array<any>=[];
+   fixtures:fixture[]= [];
+  ;
   teamId = this.route.snapshot.params['teamId'];
   leagueId:number=0;
   constructor(private footballDataService : FootballappService,private route: ActivatedRoute) { }

@@ -1,9 +1,21 @@
-export interface fixture {
-    home: string,
-    away: string,
-    logoHome: string,
-   goalsHome:string
-   goalsAway:string
-   logoAway: string,
+export interface fixture {       
+        teams: {
+            home: {
+               
+                name: String
+                logo:String
+               
+            }
+            away: {
+               
+                name: String
+                logo:String
+            }
+        }
+        goals: {
+            home: Number
+            away: Number
+        }
+       
+    }
   
-  }

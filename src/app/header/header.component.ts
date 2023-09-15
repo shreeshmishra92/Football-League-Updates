@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TopLeagues } from '../constant';
 import { FootballappService } from '../service/footballapp.service';
-import { countries } from '../interface/countryData';
+import { countries,allCountryData } from '../interface/countryData';
 import { Router } from '@angular/router';
+import { Standings } from '../interface/standings';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
   leagueId=0;
   error:string='';
   currentSeason = new Date().getFullYear();
-  standings:Array<any>=[];
+  standings:Standings[]=[];
   selectedCountry:any;
   constructor(private footballDataService: FootballappService, private router:Router) {
     
@@ -24,9 +25,9 @@ export class HeaderComponent implements OnInit {
       this.countriesList=JSON.parse(localStorage.getItem('countries') || '{}');
       this.selectedCountry=this.footballDataService.showActiveClass();
     }else{
-    this.footballDataService.getCountries('countries').subscribe((res: any) => {
+    this.footballDataService.getCountries('countries').subscribe((res:any) => {
       if(res['response'].length>0){
-      this.countriesList = res['response'].filter((country: any) => {
+      this.countriesList = res['response'].filter((country: countries) => {
         return Object.keys(TopLeagues).indexOf(country.name) !== -1;
       });
       this.getLeague(this.selectedCountry);
@@ -38,7 +39,7 @@ export class HeaderComponent implements OnInit {
   }
   }
   
-  getLeague(country: any) {
+  getLeague(country: countries) {
     this.selectedCountry=country;
     localStorage.setItem('selectedCountry', JSON.stringify(country));
     let leagueName = TopLeagues[country.name as keyof typeof TopLeagues];
