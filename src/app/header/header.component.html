@@ -1,0 +1,18 @@
+
+
+<ng-container >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" *ngFor="let country of countriesList">
+        <li class="nav-item " [ngClass]="(selectedCountry.name==country.name)?'active':''">
+          <a id="{{country.name}}Select" class="nav-link" (click)="getLeague(country)">{{country.name}} </a>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="error!=''">
+        <h5>{{error}}</h5>
+    </div>
+  </nav>
+
+</ng-container>
+

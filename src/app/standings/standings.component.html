@@ -1,0 +1,32 @@
+
+<ng-container *ngIf="standings.length>0">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Flags</th>
+          <th scope="col">Name</th>
+          <th scope="col">Games</th>
+          <th scope="col">W</th>
+          <th scope="col">L</th>
+          <th scope="col">D</th>
+          <th scope="col">Goals Difference</th>
+          <th scope="col">Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let stand of standings'>
+          <td>{{stand?.rank}}</td>
+          <td><img [src]='stand.team.logo' style="width: 20px;height: 20px;"/></td>
+          <td><a [routerLink]="['/fixtures', stand.team.id]">{{stand.team.name}}</a></td>
+          <td>{{stand.all.played}}</td>
+          <td>{{stand.all.win}}</td>
+          <td>{{stand.all.draw}}</td>
+          <td>{{stand.all.lose}}</td>
+          <td>{{stand.goalsDiff}}</td>
+          <td>{{stand.points}}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+  </ng-container>

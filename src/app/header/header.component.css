@@ -1,0 +1,10 @@
+nav ul li{
+    padding : 0 40px 0 40px;
+}
+
+.active a{
+    color: blue !important;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: underline;
+}
