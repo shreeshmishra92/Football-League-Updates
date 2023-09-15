@@ -1,6 +1,11 @@
 <table>
   <tr>
-    <th *ngFor="let country of countriesList">
+    <th
+      *ngFor="let country of countriesList"
+      style="
+    width: 80px; 
+"
+    >
       <a
         [ngClass]="selectedCountry.name == country.name ? 'active' : ''"
         (click)="getLeague(country)"

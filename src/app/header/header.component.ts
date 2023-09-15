@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
         localStorage.getItem('countries') || '{}'
       );
       this.selectedCountry = this.footballDataService.showActiveClass();
+      this.getLeague(this.selectedCountry);
     } else {
       this.footballDataService
         .getCountries('countries')
@@ -66,6 +67,7 @@ export class HeaderComponent implements OnInit {
           this.getStandings(this.leagueId);
         } else {
           this.error = res['errors']?.requests;
+          window.localStorage.removeItem('standings');
         }
       });
   }
