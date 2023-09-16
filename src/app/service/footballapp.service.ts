@@ -51,9 +51,9 @@ export class FootballappService {
 
   showActiveClass(): Observable<Object> {
     if (localStorage.getItem('selectedCountry')) {
-      var countryData = JSON.parse(
+      var countryData =
         JSON.parse(localStorage.getItem('selectedCountry') || '{}'
-      ));
+      );
     } else {
       countryData = {
         name: 'England',
