@@ -7,7 +7,7 @@
 "
     >
       <a
-        [ngClass]="selectedCountry.name == country.name ? 'active' : ''"
+        [ngClass]="selectedCountry == country.name ? 'active' : ''"
         (click)="getLeague(country)"
         >{{ country.name }}</a
       >

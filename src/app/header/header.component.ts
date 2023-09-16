@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   error: string = '';
   currentSeason = new Date().getFullYear();
   standings: Standings[] = [];
-  selectedCountry: any;
+  selectedCountry='England';
   constructor(
     private footballDataService: FootballappService,
     private router: Router
@@ -26,56 +26,61 @@ export class HeaderComponent implements OnInit {
       this.countriesList = JSON.parse(
         localStorage.getItem('countries') || '{}'
       );
-      this.selectedCountry = this.footballDataService.showActiveClass();
-      this.getLeague(this.selectedCountry);
+      this.selectedCountry = JSON.parse(JSON.stringify(this.footballDataService.showActiveClass())).name;
+      let countrydata=JSON.parse(JSON.stringify(this.footballDataService.showActiveClass()));
+      this.getLeague(countrydata);
     } else {
       this.footballDataService
         .getCountries('countries')
-        .subscribe((res: any) => {
-          this.error = '';
-          if (res['response'].length > 0) {
-            this.countriesList = res['response'].filter(
+        .subscribe(res => {
+          let data=JSON.parse(JSON.stringify(res))
+          if (data['response'].length > 0) {
+            this.countriesList = data['response'].filter(
               (country: countries) => {
                 return Object.keys(TopLeagues).indexOf(country.name) !== -1;
               }
             );
-            this.getLeague(this.selectedCountry);
+            let countrydata= JSON.parse(JSON.stringify(this.footballDataService.showActiveClass()));
+            
+            this.getLeague(countrydata);
             localStorage.setItem(
               'countries',
               JSON.stringify(this.countriesList)
             );
-          } else {
-            this.error = res['errors']?.requests;
-          }
+          } 
         });
     }
   }
 
   getLeague(country: countries) {
     this.error = '';
-    this.selectedCountry = this.footballDataService.showActiveClass();
-    this.selectedCountry = country;
+
+    this.selectedCountry = country.name;
+  
+    
+
     localStorage.setItem('selectedCountry', JSON.stringify(country));
     let leagueName = TopLeagues[country.name as keyof typeof TopLeagues];
 
     this.footballDataService
       .getLeaguesId(country.code, this.currentSeason, leagueName, country.name)
-      .subscribe((res: any) => {
-        if (res.length > 0) {
-          localStorage.setItem('leagueData', JSON.stringify(res['response']));
-          localStorage.setItem('leagueId', res['response'][0].league.id);
-          this.leagueId = res['response'][0].league.id;
+      .subscribe(res => {
+        let data=JSON.parse(JSON.stringify(res))
+        if (data['response'].length > 0) {
+          localStorage.setItem('leagueData', JSON.stringify(data['response']));
+          localStorage.setItem('leagueId', data['response'][0].league.id);
+          this.leagueId = data['response'][0].league.id;
           this.getStandings(this.leagueId);
         } else {
-          this.error = res['errors']?.requests;
-          window.localStorage.removeItem('standings');
+          this.error = data['errors']?.requests;
         }
       });
   }
   getStandings(leagueId: number) {
     this.footballDataService
       .getStandings(leagueId, this.currentSeason)
-      .subscribe((data: any) => {
+      .subscribe(res => {
+        let data=JSON.parse(JSON.stringify(res))
         if (data['response'].length > 0) {
           this.standings = data['response'][0]?.league.standings[0];
           window.localStorage.setItem(
@@ -87,7 +92,4 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  ngDoCheck() {
-    this.selectedCountry = this.footballDataService.showActiveClass();
-  }
 }
