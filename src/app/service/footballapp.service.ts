@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class FootballappService {
   constructor(public http: HttpClient) {}
-  header: any = new HttpHeaders();
+  header= new HttpHeaders();
 
   getCountries(fn: string) {
     return this.http.get(`${environment.API_HOST_URL}/` + fn);
@@ -30,7 +30,7 @@ export class FootballappService {
     });
   }
 
-  getStandings(leagueId: number, season: number): Observable<any> {
+  getStandings(leagueId: number, season: number): Observable<Object> {
     const params = new HttpParams()
       .set('league', leagueId)
       .set('season', season);
@@ -39,7 +39,7 @@ export class FootballappService {
     });
   }
 
-  getfixtures(leagueId: number, teamId: number): Observable<any> {
+  getfixtures(leagueId: number, teamId: number): Observable<Object> {
     const params = new HttpParams()
       .set('league', leagueId)
       .set('last', '10')
@@ -49,11 +49,11 @@ export class FootballappService {
     });
   }
 
-  showActiveClass(): Observable<any> {
+  showActiveClass(): Observable<Object> {
     if (localStorage.getItem('selectedCountry')) {
       var countryData = JSON.parse(
-        localStorage.getItem('selectedCountry') || '{}'
-      );
+        JSON.parse(localStorage.getItem('selectedCountry') || '{}'
+      ));
     } else {
       countryData = {
         name: 'England',

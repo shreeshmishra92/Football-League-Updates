@@ -19,8 +19,9 @@ export class FixturesComponent implements OnInit {
     this.leagueId = JSON.parse(localStorage.getItem('leagueId')|| '{}');
   
    this.footballDataService.getfixtures(this.leagueId,this.teamId).subscribe(res=>{
-    localStorage.setItem('fixtures',res['response']);
-    this.fixtures =res['response'];
+    let data=JSON.parse(JSON.stringify(res))
+    localStorage.setItem('fixtures',data['response']);
+    this.fixtures =data['response'];
     })
  
 }
