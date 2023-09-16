@@ -27,8 +27,8 @@ export class HeaderComponent implements OnInit {
         localStorage.getItem('countries') || '{}'
       );
       this.selectedCountry = JSON.parse(JSON.stringify(this.footballDataService.showActiveClass())).name;
-      let country=JSON.parse(JSON.stringify(this.footballDataService.showActiveClass()));
-      this.getLeague(country);
+      let countryData=JSON.parse(JSON.stringify(this.footballDataService.showActiveClass()));
+      this.getLeague(countryData);
     } else {
       this.footballDataService
         .getCountries('countries')
@@ -40,9 +40,9 @@ export class HeaderComponent implements OnInit {
                 return Object.keys(TopLeagues).indexOf(country.name) !== -1;
               }
             );
-            let country= JSON.parse(JSON.stringify(this.footballDataService.showActiveClass()));
+            let countryData= JSON.parse(JSON.stringify(this.footballDataService.showActiveClass()));
             
-            this.getLeague(country);
+            this.getLeague(countryData);
             localStorage.setItem(
               'countries',
               JSON.stringify(this.countriesList)
@@ -54,11 +54,7 @@ export class HeaderComponent implements OnInit {
 
   getLeague(country: countries) {
     this.error = '';
-
     this.selectedCountry = country.name;
-  
-    
-
     localStorage.setItem('selectedCountry', JSON.stringify(country));
     let leagueName = TopLeagues[country.name as keyof typeof TopLeagues];
 
