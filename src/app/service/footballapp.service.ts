@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class FootballappService {
   constructor(public http: HttpClient) {}
-  header= new HttpHeaders();
+  header = new HttpHeaders();
 
   getCountries(fn: string) {
     return this.http.get(`${environment.API_HOST_URL}/` + fn);
@@ -39,7 +39,7 @@ export class FootballappService {
     });
   }
 
-  getfixtures(leagueId: number, teamId: number): Observable<Object> {
+  getfixtures(leagueId: number, teamId: number) {
     const params = new HttpParams()
       .set('league', leagueId)
       .set('last', '10')
@@ -51,8 +51,8 @@ export class FootballappService {
 
   showActiveClass() {
     if (localStorage.getItem('selectedCountry')) {
-      var countryData =
-        JSON.parse(localStorage.getItem('selectedCountry') || '{}'
+      var countryData = JSON.parse(
+        localStorage.getItem('selectedCountry') || '{}'
       );
     } else {
       countryData = {
