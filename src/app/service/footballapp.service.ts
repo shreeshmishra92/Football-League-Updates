@@ -50,17 +50,12 @@ export class FootballappService {
   }
 
   showActiveClass() {
-    if (localStorage.getItem('selectedCountry')) {
-      var countryData = JSON.parse(
-        localStorage.getItem('selectedCountry') || '{}'
-      );
-    } else {
-      countryData = {
-        name: 'England',
-        code: 'GB',
-        flag: 'https://media-4.api-sports.io/flags/gb.svg',
-      };
-    }
+    let countryData = {
+      name: 'England',
+      code: 'GB',
+      flag: 'https://media-4.api-sports.io/flags/gb.svg',
+    };
+
     return countryData;
   }
 }
