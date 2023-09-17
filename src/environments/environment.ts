@@ -2,11 +2,10 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {  
+export const environment = {
   production: false,
   API_HOST_URL: 'https://v3.football.api-sports.io',
-  API_KEY: '20cf563584fba53701829e2225b12360'
-
+  API_KEY: '88219deaffb1a715c4b2f6e7e1e6d412',
 };
 
 /*

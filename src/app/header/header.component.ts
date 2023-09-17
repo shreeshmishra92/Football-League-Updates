@@ -47,10 +47,13 @@ export class HeaderComponent implements OnInit {
       .subscribe((res) => {
         let data = JSON.parse(JSON.stringify(res));
 
-          this.leagueId = data['response'][0].league.id;
-       this.router.navigate(['standings',this.leagueId]);       
+        this.leagueId = data['response'][0].league.id;
+        this.redirectTo('standings/' + this.leagueId);
       });
   }
-  
-
+  redirectTo(uri: string) {
+    this.router
+      .navigateByUrl('/', { skipLocationChange: true })
+      .then(() => this.router.navigate([uri]));
+  }
 }
