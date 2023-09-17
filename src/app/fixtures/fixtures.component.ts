@@ -5,7 +5,7 @@ import { fixture } from '../interface/fixtureData';
 @Component({
   selector: 'app-fixtures',
   templateUrl: './fixtures.component.html',
-  styleUrls: ['./fixtures.component.css']
+  styleUrls: ['./fixtures.component.css'],
 })
 export class FixturesComponent implements OnInit {
    fixtures:fixture[]= [];
