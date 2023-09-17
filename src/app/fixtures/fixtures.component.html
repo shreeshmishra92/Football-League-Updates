@@ -14,7 +14,7 @@
             {{ fixture.goals.home }} : {{ fixture.goals.away }}
           </td>
           <td style="width:180px !important">{{ fixture.teams.away.name }}</td>
-          <td>{{ fixture.teams.away.name }}</td>
+       
           <td>
             <img
               [src]="fixture.teams.away.logo"
@@ -26,4 +26,4 @@
     </table>
   </div>
 </div>
-<a href="#" class="btn btn-primary" style="width: 4rem;" routerLink="/">Back</a>
+<a href="#" class="btn btn-primary" style="width: 4rem;" [routerLink]='["/standings",leagueId]'>Back</a>

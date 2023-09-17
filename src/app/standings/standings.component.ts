@@ -14,20 +14,22 @@ export class StandingsComponent implements OnInit {
   constructor(private footballDataService:FootballappService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-  
-      this.footballDataService
-        .getStandings(this.leagueId, this.currentSeason)
-        .subscribe(res => {
-          let data=JSON.parse(JSON.stringify(res))
-        
-            this.standings = data['response'][0]?.league.standings[0];
-          
-          
-        
-        });
-    
+  if(this.leagueId){
+   this.ngOnChanges();
+  }
     
   }
 
-
+  ngOnChanges(){
+    this.footballDataService
+    .getStandings(this.leagueId, this.currentSeason)
+    .subscribe(res => {
+      let data=JSON.parse(JSON.stringify(res))
+    
+        this.standings = data['response'][0]?.league.standings[0];
+      
+      
+    
+    });
+  }
 }

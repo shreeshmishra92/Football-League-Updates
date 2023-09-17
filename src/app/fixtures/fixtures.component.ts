@@ -26,7 +26,7 @@ teamId:number=0;
   
    this.footballDataService.getfixtures(this.leagueId,this.teamId).subscribe(res=>{
     let data=JSON.parse(JSON.stringify(res))
-    localStorage.setItem('fixtures',data['response']);
+  
     this.fixtures =data['response'];
     })
  

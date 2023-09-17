@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TopLeagues } from '../constant';
 import { FootballappService } from '../service/footballapp.service';
 import { countries } from '../interface/countryData';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Standings } from '../interface/standings';
 @Component({
   selector: 'app-header',
@@ -11,18 +11,20 @@ import { Standings } from '../interface/standings';
 })
 export class HeaderComponent implements OnInit {
   countriesList: countries[] = [];
-  leagueId = 0;
+
   error: string = '';
+  leagueId = this.route.snapshot.params['leagueId'];
   currentSeason = new Date().getFullYear();
   standings: Standings[] = [];
   selectedCountry = '';
   constructor(
     private footballDataService: FootballappService,
-    private router: Router
+    private router: Router,
+    private route:ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.footballDataService.getCountries('countries').subscribe((res) => {
+    this.footballDataService.getCountries('countries').subscribe(res=> {
       let data = JSON.parse(JSON.stringify(res));
 
       this.countriesList = data['response'].filter((country: countries) => {
@@ -44,18 +46,18 @@ export class HeaderComponent implements OnInit {
 
     this.footballDataService
       .getLeaguesId(country.code, this.currentSeason, leagueName, country.name)
-      .subscribe((res) => {
+      .subscribe(res=> {
         let data = JSON.parse(JSON.stringify(res));
-
-     
-          localStorage.setItem('leagueData', JSON.stringify(data['response']));
-          localStorage.setItem('leagueId', data['response'][0].league.id);
+      
           this.leagueId = data['response'][0].league.id;
-       this.router.navigate(['standings',this.leagueId]);
+          this.redirectTo('standings/'+this.leagueId);
         
         
       });
   }
-  
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate([uri]));
+ }
 
 }
