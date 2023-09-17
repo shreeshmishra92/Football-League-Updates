@@ -5,7 +5,7 @@
 export const environment = {  
   production: false,
   API_HOST_URL: 'https://v3.football.api-sports.io',
-  API_KEY: 'de3f7f5028d13f9633d98ae36e262d22'
+  API_KEY: '20cf563584fba53701829e2225b12360'
 
 };
 

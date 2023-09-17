@@ -9,18 +9,19 @@ import { Standings } from '../interface/standings'
 })
 export class StandingsComponent implements OnInit {
   leagueId = this.route.snapshot.params['leagueId'];
-  standings:Array<any>=[];
+  standings:Standings[]=[];
   currentSeason = new Date().getFullYear();
   constructor(private footballDataService:FootballappService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-  if(this.leagueId){
+
    this.ngOnChanges();
-  }
+ 
     
   }
 
   ngOnChanges(){
+    if(this.leagueId){
     this.footballDataService
     .getStandings(this.leagueId, this.currentSeason)
     .subscribe(res => {
@@ -32,4 +33,5 @@ export class StandingsComponent implements OnInit {
     
     });
   }
+}
 }
