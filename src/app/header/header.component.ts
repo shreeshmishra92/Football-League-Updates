@@ -59,25 +59,11 @@ export class HeaderComponent implements OnInit {
           localStorage.setItem('leagueData', JSON.stringify(data['response']));
           localStorage.setItem('leagueId', data['response'][0].league.id);
           this.leagueId = data['response'][0].league.id;
-          this.getStandings(this.leagueId);
+       this.router.navigate(['standings',this.leagueId]);
         
         
       });
   }
-  getStandings(leagueId: number) {
-    this.footballDataService
-      .getStandings(leagueId, this.currentSeason)
-      .subscribe(res => {
-        let data=JSON.parse(JSON.stringify(res))
-      
-          this.standings = data['response'][0]?.league.standings[0];
-          window.localStorage.setItem(
-            'standings',
-            JSON.stringify(data['response'][0].league.standings[0])
-          );
-        
-        this.router.navigate(['standings/' + leagueId]);
-      });
-  }
+  
 
 }

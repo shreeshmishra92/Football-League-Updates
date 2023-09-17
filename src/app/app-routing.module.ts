@@ -7,7 +7,7 @@ import { FixturesComponent } from './fixtures/fixtures.component';
 const routes: Routes = [
   { path:'',  component:StandingsComponent },
   { path:'standings/:leagueId', component:StandingsComponent  },
-  { path:'fixtures/:teamId', component:FixturesComponent  }
+  { path:'fixtures/:leagueId/:teamId', component:FixturesComponent  }
 ];
 
 @NgModule({
