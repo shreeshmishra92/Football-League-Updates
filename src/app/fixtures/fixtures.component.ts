@@ -8,27 +8,27 @@ import { fixture } from '../interface/fixtureData';
   styleUrls: ['./fixtures.component.css'],
 })
 export class FixturesComponent implements OnInit {
-   fixtures:fixture[]= [];
-  ;
-teamId:number=0;
-  leagueId:number=0;
-  constructor(private footballDataService : FootballappService,private route: ActivatedRoute) { }
+  fixtures: fixture[] = [];
+  teamId: number = 0;
+  leagueId: number = 0;
+  constructor(
+    private footballDataService: FootballappService,
+    private route: ActivatedRoute
+  ) {}
 
   currentSeason = new Date().getFullYear();
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-
-     this.leagueId=parseInt(params.get('leagueId')!);
-     this.teamId=parseInt(params.get('teamId')!);
+      this.leagueId = parseInt(params.get('leagueId')!);
+      this.teamId = parseInt(params.get('teamId')!);
     });
-  
-    
-  
-   this.footballDataService.getfixtures(this.leagueId,this.teamId).subscribe(res=>{
-    let data=JSON.parse(JSON.stringify(res))
-    localStorage.setItem('fixtures',data['response']);
-    this.fixtures =data['response'];
-    })
- 
-}
+
+    this.footballDataService
+      .getfixtures(this.leagueId, this.teamId)
+      .subscribe((res) => {
+        let data = JSON.parse(JSON.stringify(res));
+
+        this.fixtures = data['response'];
+      });
+  }
 }
