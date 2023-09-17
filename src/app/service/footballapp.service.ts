@@ -19,7 +19,7 @@ export class FootballappService {
     season: number,
     leagueName: string,
     countryName: string
-  ): Observable<any> {
+  ) {
     const params = new HttpParams()
       .set('code', countryCode)
       .set('season', season)
@@ -30,7 +30,7 @@ export class FootballappService {
     });
   }
 
-  getStandings(leagueId: number, season: number): Observable<Object> {
+  getStandings(leagueId: number, season: number) {
     const params = new HttpParams()
       .set('league', leagueId)
       .set('season', season);
@@ -49,7 +49,7 @@ export class FootballappService {
     });
   }
 
-  showActiveClass(): Observable<Object> {
+  showActiveClass() {
     if (localStorage.getItem('selectedCountry')) {
       var countryData =
         JSON.parse(localStorage.getItem('selectedCountry') || '{}'

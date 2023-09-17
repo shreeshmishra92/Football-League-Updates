@@ -22,19 +22,12 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (JSON.parse(localStorage.getItem('countries') || '[]').length > 0) {
-      this.countriesList = JSON.parse(
-        localStorage.getItem('countries') || '{}'
-      );
-      this.selectedCountry = JSON.parse(JSON.stringify(this.footballDataService.showActiveClass())).name;
-      let countryData=JSON.parse(JSON.stringify(this.footballDataService.showActiveClass()));
-      this.getLeague(countryData);
-    } else {
+   
       this.footballDataService
         .getCountries('countries')
-        .subscribe(res => {
+        .subscribe(res=> {
           let data=JSON.parse(JSON.stringify(res))
-          if (data['response'].length > 0) {
+        
             this.countriesList = data['response'].filter(
               (country: countries) => {
                 return Object.keys(TopLeagues).indexOf(country.name) !== -1;
@@ -47,9 +40,9 @@ export class HeaderComponent implements OnInit {
               'countries',
               JSON.stringify(this.countriesList)
             );
-          } 
+          
         });
-    }
+    
   }
 
   getLeague(country: countries) {
@@ -62,14 +55,13 @@ export class HeaderComponent implements OnInit {
       .getLeaguesId(country.code, this.currentSeason, leagueName, country.name)
       .subscribe(res => {
         let data=JSON.parse(JSON.stringify(res))
-        if (data['response'].length > 0) {
+     
           localStorage.setItem('leagueData', JSON.stringify(data['response']));
           localStorage.setItem('leagueId', data['response'][0].league.id);
           this.leagueId = data['response'][0].league.id;
           this.getStandings(this.leagueId);
-        } else {
-          this.error = data['errors']?.requests;
-        }
+        
+        
       });
   }
   getStandings(leagueId: number) {
@@ -77,13 +69,13 @@ export class HeaderComponent implements OnInit {
       .getStandings(leagueId, this.currentSeason)
       .subscribe(res => {
         let data=JSON.parse(JSON.stringify(res))
-        if (data['response'].length > 0) {
+      
           this.standings = data['response'][0]?.league.standings[0];
           window.localStorage.setItem(
             'standings',
             JSON.stringify(data['response'][0].league.standings[0])
           );
-        }
+        
         this.router.navigate(['standings/' + leagueId]);
       });
   }
