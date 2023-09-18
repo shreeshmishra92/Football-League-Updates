@@ -28,8 +28,8 @@ export class HeaderComponent implements OnInit {
       this.countriesList = data['response'].filter((country: countries) => {
         return Object.keys(TopLeagues).indexOf(country.name) !== -1;
       });
-      let countryData = JSON.parse(
-        JSON.stringify(this.footballDataService.showActiveClass())
+      let countryData = structuredClone(
+        this.footballDataService.showActiveClass()
       );
 
       this.getLeague(countryData);
