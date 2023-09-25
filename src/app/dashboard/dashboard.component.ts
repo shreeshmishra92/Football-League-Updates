@@ -3,7 +3,7 @@ import { FootballappService } from '../service/footballapp.service';
 import { TopLeagues } from '../constant';
 import { countries } from '../interface/countryData';
 import { LeagueStandings } from '../interface/standings';
-import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -26,10 +26,10 @@ export class DashboardComponent implements OnInit {
       this.selectedCountry = selectedCountry;
       this.getLeagues(selectedCountry);
     }
-    this.allcountries();
+    this.getAllcountries();
   }
 
-  allcountries() {
+  getAllcountries() {
     let countryList = JSON.parse(sessionStorage.getItem('countries') || 'null');
     if (countryList) {
       this.countryList = countryList;
@@ -39,7 +39,6 @@ export class DashboardComponent implements OnInit {
           return Object.keys(TopLeagues).indexOf(country['name']) !== -1;
         });
         sessionStorage.setItem('countries', JSON.stringify(this.countryList));
-
         this.getLeagues(this.countryList[0]);
       });
     }
