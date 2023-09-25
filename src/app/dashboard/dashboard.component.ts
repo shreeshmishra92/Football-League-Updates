@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
     this.getAllcountries();
   }
 
+  //get top 5 countries data from here
   getAllcountries() {
    
     let countryList = JSON.parse(sessionStorage.getItem('countries') || 'null');
@@ -50,6 +51,8 @@ export class DashboardComponent implements OnInit {
       );
     }
   }
+
+  //get league data from here
   getLeagues(country: countries) {
     this.loading = true;
     sessionStorage.setItem('SelectedCountry', JSON.stringify(country));
@@ -63,7 +66,7 @@ export class DashboardComponent implements OnInit {
         this.getLeagueStanding(this.leagueId);
       });
   }
-
+//get standing from here
   getLeagueStanding(leagueId: number) {
     this.footballService
       .getStandings(leagueId, this.currentSeason)
