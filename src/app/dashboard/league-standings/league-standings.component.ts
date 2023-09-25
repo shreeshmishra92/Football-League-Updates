@@ -13,7 +13,5 @@ export class LeagueStandingsComponent implements OnInit {
   @Input() loading: boolean = false;
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.standingsList);
-  }
+  ngOnInit(): void {}
 }
