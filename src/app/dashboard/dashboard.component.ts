@@ -7,70 +7,63 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
-
 export class DashboardComponent implements OnInit {
-countryList:countries[]=[];
-selectedCountry!: countries ;
-standingsList:LeagueStandings[]=[];
-leagueId!:number;
-loading:boolean=false;
-currentSeason: number = new Date().getFullYear();
-  constructor(private footballService:FootballappService) { }
+  countryList: countries[] = [];
+  selectedCountry!: countries;
+  standingsList: LeagueStandings[] = [];
+  leagueId!: number;
+  loading: boolean = false;
+  currentSeason: number = new Date().getFullYear();
+  constructor(private footballService: FootballappService) {}
 
   ngOnInit(): void {
-    let selectedCountry=JSON.parse(sessionStorage.getItem('SelectedCountry')|| 'null');
-    console.log(selectedCountry);
-    
-    if(selectedCountry!=null){
-      this.selectedCountry=selectedCountry;
+    let selectedCountry = JSON.parse(
+      sessionStorage.getItem('SelectedCountry') || 'null'
+    );
+    if (selectedCountry != null) {
+      this.selectedCountry = selectedCountry;
       this.getLeagues(selectedCountry);
     }
     this.allcountries();
   }
 
-  allcountries(){
-    let countryList=JSON.parse(sessionStorage.getItem('countries')|| 'null');
-    if(countryList){
-      this.countryList=countryList;
-
-    }else{ 
-    this.footballService.getCountries('countries').subscribe(res=>{
-      this.countryList=res['response'].filter(country=>{
-          return Object.keys(TopLeagues).indexOf(country['name'])!== -1
+  allcountries() {
+    let countryList = JSON.parse(sessionStorage.getItem('countries') || 'null');
+    if (countryList) {
+      this.countryList = countryList;
+    } else {
+      this.footballService.getCountries('countries').subscribe((res) => {
+        this.countryList = res['response'].filter((country) => {
+          return Object.keys(TopLeagues).indexOf(country['name']) !== -1;
         });
-       
-        sessionStorage.setItem('countries',JSON.stringify(this.countryList))
-        this.selectedCountry=this.countryList[0];
+        sessionStorage.setItem('countries', JSON.stringify(this.countryList));
+
         this.getLeagues(this.countryList[0]);
-      })
+      });
     }
   }
-  getLeagues(country:countries){
-    this.loading=true;
-    sessionStorage.setItem('SelectedCountry',JSON.stringify(country));
-    this.selectedCountry=country;
+  getLeagues(country: countries) {
+    this.loading = true;
+    sessionStorage.setItem('SelectedCountry', JSON.stringify(country));
+    this.selectedCountry = country;
     let leagueName = TopLeagues[country.name as keyof typeof TopLeagues];
-    this.selectedCountry=country;
-    this.footballService.getLeaguesId(country.code, this.currentSeason, leagueName, country.name)
-    .subscribe(data => {
-      this.leagueId=data['response'][0].league.id;
-    
-      this.getLeagueStanding(this.leagueId)
-    })
+    this.selectedCountry = country;
+    this.footballService
+      .getLeaguesId(country.code, this.currentSeason, leagueName, country.name)
+      .subscribe((data) => {
+        this.leagueId = data['response'][0].league.id;
+        this.getLeagueStanding(this.leagueId);
+      });
   }
 
-getLeagueStanding(leagueId:number){
-
-this.footballService.getStandings(leagueId, this.currentSeason)
-.subscribe((data) => {
-  this.standingsList=  data['response'][0]?.league?.standings[0];;
-    //this.standingsList=data.response[0].league?.standings
-this.loading=false;
-console.log(this.standingsList);
-
-})
-}
-
+  getLeagueStanding(leagueId: number) {
+    this.footballService
+      .getStandings(leagueId, this.currentSeason)
+      .subscribe((data) => {
+        this.standingsList = data['response'][0]?.league?.standings[0];
+        this.loading = false;
+      });
+  }
 }
