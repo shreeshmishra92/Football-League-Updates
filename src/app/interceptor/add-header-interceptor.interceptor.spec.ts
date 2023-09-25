@@ -1,16 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AddHeaderInterceptorInterceptor } from './add-header-interceptor.interceptor';
+import { AddleagueInterceptor } from './add-header-interceptor.interceptor';
 
 describe('AddHeaderInterceptorInterceptor', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    providers: [
-      AddHeaderInterceptorInterceptor
-      ]
-  }));
+  beforeEach(() =>
+    TestBed.configureTestingModule({
+      providers: [AddleagueInterceptor],
+    })
+  );
 
   it('should be created', () => {
-    const interceptor: AddHeaderInterceptorInterceptor = TestBed.inject(AddHeaderInterceptorInterceptor);
+    const interceptor: AddleagueInterceptor =
+      TestBed.inject(AddleagueInterceptor);
     expect(interceptor).toBeTruthy();
   });
 });
