@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   standingsList: LeagueStandings[] = [];
   leagueId!: number;
   loading: boolean = false;
+  error!: string;
   currentSeason: number = new Date().getFullYear();
   constructor(private footballService: FootballappService) {}
 
@@ -30,17 +31,24 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllcountries() {
+    this.loading = true;
     let countryList = JSON.parse(sessionStorage.getItem('countries') || 'null');
     if (countryList) {
       this.countryList = countryList;
     } else {
-      this.footballService.getCountries('countries').subscribe((res) => {
-        this.countryList = res['response'].filter((country) => {
-          return Object.keys(TopLeagues).indexOf(country['name']) !== -1;
-        });
-        sessionStorage.setItem('countries', JSON.stringify(this.countryList));
-        this.getLeagues(this.countryList[0]);
-      });
+      this.footballService.getCountries('countries').subscribe(
+        (res) => {
+          this.countryList = res['response'].filter((country) => {
+            return Object.keys(TopLeagues).indexOf(country['name']) !== -1;
+          });
+          sessionStorage.setItem('countries', JSON.stringify(this.countryList));
+          this.getLeagues(this.countryList[0]);
+        },
+        (err) => {
+          this.loading = false;
+          this.error = 'Service is not working.';
+        }
+      );
     }
   }
   getLeagues(country: countries) {
