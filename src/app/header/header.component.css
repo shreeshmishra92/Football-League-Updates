@@ -1,12 +1,9 @@
-nav ul li {
-  padding: 0 40px 0 40px;
-}
-.active a {
-  color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1)) !important;
-}
-.active {
-  color: rgb(237, 116, 2) !important;
-  font-size: 18px;
-  font-weight: 700;
-  text-decoration: underline;
+nav ul li{
+    padding : 0 40px 0 40px;
+  }
+  
+.active{
+    text-decoration: underline;
+    font-weight: bold;
+    color: blue !important;
 }

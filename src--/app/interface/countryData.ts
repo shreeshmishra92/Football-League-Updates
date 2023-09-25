@@ -1,6 +1,5 @@
 export interface countries {
     name: string,
     code:string,
-    flag:string,
-    response:[]
+    flag:string
 }

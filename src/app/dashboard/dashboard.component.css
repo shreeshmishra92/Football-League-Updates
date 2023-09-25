@@ -1,28 +1,4 @@
-.backbtn {
-    width: 5rem;
-    margin: 12px;
-  }
-  
-  .card-body {
-    line-height: 30px;
-    padding-top: 29px;
-  }
-  
-  .card {
-    height: 93vh;
-  }
-  
-  .table-wrap {
-    overflow-y: scroll;
-    table-layout: fixed;
-  }
-  
-  .card {
-    height: 20%;
-  }
-  
-
-  .loader {
+.loader {
     margin:auto;
       border: 16px solid #e5ddab;
       border-radius: 50%;
@@ -43,7 +19,4 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    .logo {
-        width: 30px;
-        height: 300px;
-      }
+ 

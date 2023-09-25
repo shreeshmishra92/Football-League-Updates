@@ -1,17 +1,6 @@
-<table>
-  <tr>
-    <th
-      *ngFor="let country of countriesList"
-      style="
-    width: 80px; 
-"
-    >
-      <a
-        [ngClass]="selectedCountry == country.name ? 'active' : ''"
-        (click)="getLeague(country)"
-        >{{ country.name }}</a
-      >
-    </th>
-  </tr>
-</table>
-<div *ngIf="error">{{ error }}</div>
+<ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor = "let country of countryList">
+      <a id="{{country.name}}Select" 
+       class="nav-link" [ngClass]="selectedCountry.name == country.name?'active': ''" aria-current="page" (click)="ShowCountryLeague(country)">{{country.name}}</a>
+    </li>
+  </ul>

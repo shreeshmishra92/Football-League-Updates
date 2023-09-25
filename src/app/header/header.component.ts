@@ -1,59 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { TopLeagues } from '../constant';
-import { FootballappService } from '../service/footballapp.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { countries } from '../interface/countryData';
-import { Router } from '@angular/router';
-import { Standings } from '../interface/standings';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  countriesList: countries[] = [];
-  leagueId = 0;
-  error: string = '';
-  currentSeason = new Date().getFullYear();
-  standings: Standings[] = [];
-  selectedCountry = '';
-  constructor(
-    private footballDataService: FootballappService,
-    private router: Router
-  ) {}
+  @Input() countryList: countries[] = [];
+  @Input() selectedCountry!:countries;
+  @Output('getLeagues') getLeagues=new EventEmitter()
+  constructor() { }
 
   ngOnInit(): void {
-    this.footballDataService.getCountries('countries').subscribe((res) => {
-      let data = JSON.parse(JSON.stringify(res));
-
-      this.countriesList = data['response'].filter((country: countries) => {
-        return Object.keys(TopLeagues).indexOf(country.name) !== -1;
-      });
-      let countryData = structuredClone(
-        this.footballDataService.showActiveClass()
-      );
-
-      this.getLeague(countryData);
-    });
   }
-
-  getLeague(country: countries) {
-    this.error = '';
-    this.selectedCountry = country.name;
-
-    let leagueName = TopLeagues[country.name as keyof typeof TopLeagues];
-
-    this.footballDataService
-      .getLeaguesId(country.code, this.currentSeason, leagueName, country.name)
-      .subscribe((res) => {
-        let data = JSON.parse(JSON.stringify(res));
-
-        this.leagueId = data['response'][0].league.id;
-        this.redirectTo('standings/' + this.leagueId);
-      });
-  }
-  redirectTo(uri: string) {
-    this.router
-      .navigateByUrl('/', { skipLocationChange: true })
-      .then(() => this.router.navigate([uri]));
+  ShowCountryLeague(country:countries){
+    console.log(country);
+this.getLeagues.emit(country);
   }
 }

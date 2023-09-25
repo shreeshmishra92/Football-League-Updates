@@ -1,0 +1,21 @@
+.logo {
+    width: 20px;
+    height: 20px;
+  }
+  nav ul li {
+    padding: 0 40px 0 40px;
+}
+
+.active {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.defaultLink {
+    text-decoration: none;
+    color: black;
+}
+
+.defaultLink:hover {
+    color: blue
+}

@@ -4,20 +4,16 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-
+import { StandingsComponent } from './header/standings/standings.component';
 import { FixturesComponent } from './fixtures/fixtures.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AddleagueInterceptor } from '../app/interceptor/add-header-interceptor.interceptor';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LeagueStandingsComponent } from './dashboard/league-standings/league-standings.component';
+import { AddHeaderInterceptor } from '../app/interceptor/add-header-interceptor.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-  
+    StandingsComponent,
     FixturesComponent,
-    DashboardComponent,
-    LeagueStandingsComponent,
     
   ],
   imports: [
@@ -27,7 +23,7 @@ import { LeagueStandingsComponent } from './dashboard/league-standings/league-st
     RouterModule
   ],
   providers: [{ 
-    provide: HTTP_INTERCEPTORS, useClass: AddleagueInterceptor , multi:true
+    provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor , multi:true
   },
 ],
   bootstrap: [AppComponent]

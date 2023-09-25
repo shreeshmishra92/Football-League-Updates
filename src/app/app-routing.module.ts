@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StandingsComponent } from './standings/standings.component';
-import { HeaderComponent } from './header/header.component';
+import { LeagueStandingsComponent } from './dashboard/league-standings/league-standings.component'; 
 import { FixturesComponent } from './fixtures/fixtures.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path:'',  component:StandingsComponent },
-  { path:'standings/:leagueId', component:StandingsComponent  },
-  { path:'fixtures/:leagueId/:teamId', component:FixturesComponent  }
+  { path:'',  component:DashboardComponent },
+  { path:'fixture/:leagueId/:teamId', component:FixturesComponent  }
 ];
 
 @NgModule({

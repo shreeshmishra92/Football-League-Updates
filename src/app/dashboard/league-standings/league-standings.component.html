@@ -1,0 +1,32 @@
+<table class="table table-bordered" *ngIf="loading==false">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"> NAME </th>
+        <th scope="col"> GAMES </th>
+        <th scope="col"> WIN </th>
+        <th scope="col"> LOOSE </th>
+        <th scope="col"> DRAW </th>
+        <th scope="col"> GOAL_DIFFERNCE </th>
+        <th scope="col"> POINTS </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let standing of standingsList">
+        <td>{{ standing.rank }}</td>
+        <td><img [src]="standing.team.logo" class="logo" /></td>
+        <td>
+          <a class="defaultLink" [routerLink]="['/fixture',leagueId, standing.team.id]">{{
+            standing.team.name
+          }}</a>
+        </td>
+        <td>{{ standing.all.played }}</td>
+        <td>{{ standing.all.win }}</td>
+        <td>{{ standing.all.draw }}</td>
+        <td>{{ standing.all.lose }}</td>
+        <td>{{ standing.goalsDiff }}</td>
+        <td>{{ standing.points }}</td>
+      </tr>
+    </tbody>
+  </table>

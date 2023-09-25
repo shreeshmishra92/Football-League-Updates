@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th
+      *ngFor="let country of countriesList"
+      style="
+    width: 80px; 
+"
+    >
+      <a
+        [ngClass]="selectedCountry == country.name ? 'active' : ''"
+        (click)="getLeague(country)"
+        >{{ country.name }}</a
+      >
+    </th>
+  </tr>
+</table>
+<div *ngIf="error">{{ error }}</div>

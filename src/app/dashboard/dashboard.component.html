@@ -1,0 +1,8 @@
+<div class="container header" style=" max-width: 800px">
+  <app-header [countryList]="countryList" [selectedCountry]="selectedCountry"
+    (getLeagues)="getLeagues($event)"></app-header>
+
+  <div class="loader" *ngIf="loading"></div>
+
+  <app-league-standings [standingsList]="standingsList" [leagueId]="leagueId" [loading]="loading"></app-league-standings>
+</div>
