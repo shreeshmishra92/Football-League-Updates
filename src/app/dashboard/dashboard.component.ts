@@ -30,8 +30,7 @@ export class DashboardComponent implements OnInit {
   }
 
   //get top 5 countries data from here
-  getAllcountries() {
-   
+  getAllcountries() {   
     let countryList = JSON.parse(sessionStorage.getItem('countries') || 'null');
     if (countryList) {
       this.countryList = countryList;
