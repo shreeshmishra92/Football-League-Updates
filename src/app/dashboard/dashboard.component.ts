@@ -30,11 +30,12 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllcountries() {
-    this.loading = true;
+   
     let countryList = JSON.parse(sessionStorage.getItem('countries') || 'null');
     if (countryList) {
       this.countryList = countryList;
     } else {
+      this.loading = true;
       this.footballService.getCountries('countries').subscribe(
         (res) => {
           this.countryList = res['response'].filter((country) => {
