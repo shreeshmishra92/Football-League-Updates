@@ -46,7 +46,6 @@ export class DashboardComponent implements OnInit {
         },
         (err) => {
           this.loading = false;
-          this.error = 'Service is not working.';
         }
       );
     }
