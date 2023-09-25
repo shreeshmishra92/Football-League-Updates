@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-import { LeagueStandings } from 'src/app/interface/standings';
+import { LeagueStandings } from '../../interface/standings';
 
 @Component({
   selector: 'app-league-standings',
