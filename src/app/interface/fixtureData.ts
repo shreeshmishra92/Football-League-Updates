@@ -1,4 +1,5 @@
 export interface fixture {       
+        response:[],
         teams: {
             home: {
                
@@ -11,11 +12,12 @@ export interface fixture {
                 name: String
                 logo:String
             }
-        }
+        },
         goals: {
             home: Number
             away: Number
         }
+    
        
     }
   

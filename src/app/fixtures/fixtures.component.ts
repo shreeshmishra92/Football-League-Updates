@@ -28,8 +28,8 @@ export class FixturesComponent implements OnInit {
 
     this.footballDataService
       .getfixtures(this.leagueId, this.teamId)
-      .subscribe((res) => {
-        let data = JSON.parse(JSON.stringify(res));
+      .subscribe((data) => {
+      
         this.loading = false;
         this.fixtures = data['response'];
       });
